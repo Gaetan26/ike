@@ -51,4 +51,3 @@ class Window(ctk.CTk):
                     print(f"call error: self.{param}({value}) → {e}")
             else:
                 print(f"method not found: self.{param}")
-            
