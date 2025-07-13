@@ -24,14 +24,13 @@ class Window(ctk.CTk):
                 item.grid_remove()
 
     def switch_page(self, page_name: str):
-        print(self.pages)
         for page in self.pages.keys():
             if page == page_name:
                 self.previous_page = self.active_page
                 self.active_page = self.pages[page]
                 self.pages[page].active = True
         
-        if self.previous_page and self.previous_page in self.pages:
+        if self.previous_page and self.previous_page.name in self.pages.keys():
             self.previous_page.grid_remove()
             self.previous_page.active = False
         
