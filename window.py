@@ -1,6 +1,6 @@
 
 import customtkinter as ctk
-from dev.page import BasicPage
+from dev.page import *
 
 class Window(ctk.CTk):
     def __init__(self, *args, **kwargs):
@@ -11,7 +11,7 @@ class Window(ctk.CTk):
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
-    def add_page(self, page: BasicPage):
+    def add_page(self, page: BasicPage | ScrollablePage):
         self.pages.append(page)
         page.grid()
         page.grid_remove()
