@@ -5,23 +5,31 @@ from dev.page import *
 class Window(ctk.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self.pages = []
+        self.pages = {}
         self.active_page = None
         self.previous_page = None
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
 
-    def add_page(self, page: BasicPage | ScrollablePage):
-        self.pages.append(page)
-        page.grid()
-        page.grid_remove()
-    
+    def add_page(self, page: BasicPage | ScrollablePage | list):
+        if isinstance(page, BasicPage) or isinstance(page, ScrollablePage):
+            self.pages[page.name] = page
+            page.grid()
+            page.grid_remove()
+        
+        elif isinstance(page, list):
+            for item in page:
+                self.pages[item.name] = item
+                item.grid()
+                item.grid_remove()
+
     def switch_page(self, page_name: str):
-        for page in self.pages:
-            if page.name == page_name:
+        print(self.pages)
+        for page in self.pages.keys():
+            if page == page_name:
                 self.previous_page = self.active_page
-                self.active_page = page
-                page.active = True
+                self.active_page = self.pages[page]
+                self.pages[page].active = True
         
         if self.previous_page and self.previous_page in self.pages:
             self.previous_page.grid_remove()
